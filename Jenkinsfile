@@ -15,21 +15,21 @@ pipeline {
         stage ('Code Quality') {
             steps {
             withSonarQubeEnv("sonar") {
-                sh 'mvn sonar:sonar'
+                sh 'mvn clean verify sonar:sonar'
             }
         }
     }     
         stage('Deploy') {
         steps {
             sshagent(['ssh']) {
-              sh 'scp -o StrictHostKeyChecking=no target/*.war root18.60.146.186:/root/apache-tomcat-9.0.118/webapps/'
+              sh 'scp -o StrictHostKeyChecking=no target/*.war root18.60.146.186/root/apache-tomcat-9.0.118/webapps/'
        }
      }
    }
         post {
      always {
-       junit '*/target/surefire-reports/.xml'
-       jacoco execPattern: '**/target/.exec', classPattern: '**/classes'
+       junit '**/target/surefire-reports/*.xml'
+       jacoco execPattern: '**/target/*.exec', classPattern: '**/classes'
      }
    } 
 }
