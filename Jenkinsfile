@@ -30,8 +30,7 @@ pipeline {
                     passwordVariable: 'DOCKER_PASSWD'
                     )
                     ]) {
-                    sh '''echo "$DOCKER_PASSWD" | docker login -u
-                    "$DOCKER_USER" --password-stdin'''
+                    sh '''echo "$DOCKER_PASSWD" | docker login -u "$DOCKER_USER" --password-stdin'''
                 }
             }
         }
