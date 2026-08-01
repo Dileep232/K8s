@@ -16,7 +16,9 @@ pipeline {
         }
         stage('Deploying to container') {
             steps {
-                sh 'docker run -d --name c1 -p 9000:8080 new:one'
+                sh '''
+                docker rm -f c1 || true
+                docker run -d --name c1 -p 9000:8080 new:one'''
             }
         }  
    } 
