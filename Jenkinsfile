@@ -10,16 +10,17 @@ pipeline {
         stage('Docker-image build') {
             steps {
                 sh '''
-                docker rmi -f new:one || true
-                docker build -t new:one .
-                docker tag new:one dileep232/new:one'''
+                docker build -t new:${BUILD_NUMBER} .
+                docker tag new:${BUILD_NUMBER} dileep232/new:${BUILD_NUMBER}
+                '''
             }
         }
         stage('Deploying to container') {
             steps {
                 sh '''
                 docker rm -f c1 || true
-                docker run -d --name c1 -p 9000:8080 new:one'''
+                docker run -d --name c1 -p 9000:8080 new:${BUILD_NUMBER}
+                '''
             }
         }  
         stage('logi to dockerhub') {
@@ -36,7 +37,9 @@ pipeline {
         }
         stage('Pushing image to central') {
             steps {
-                sh 'docker push dileep232/new:one'
+                sh '''
+                docker push dileep232/new:${BUILD_NUMBER}
+                '''
             }
         }
    } 
