@@ -22,6 +22,24 @@ pipeline {
                 docker run -d --name c1 -p 9000:8080 new:one'''
             }
         }  
+        stage('logi to dockerhub') {
+            steps {
+                WithCredentials ([usernamePassword(
+                    credentialsId: 'Dockercred'
+                    usernameVariable: 'Docker_user'
+                    passwordVariable: 'Docker_passwd'
+                    )
+                    ]) {
+                    sh 'echo "$Docker_passwd" | docker login -u
+                    "$Docker_user" --password-stdin'
+                }
+            }
+        }
+        stage('Pushing image to central') {
+            steps {
+                sh 'docker push dileep232/new:one'
+            }
+        }
    } 
 }
 
