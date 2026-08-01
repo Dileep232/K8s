@@ -9,9 +9,9 @@ pipeline {
         }
         stage('Docker-image build') {
             steps {
-                sh '
+                sh '''
                 docker rmi -f new:one || true
-                docker build -t new:one .'
+                docker build -t new:one .'''
             }
         }
         stage('Deploying to container') {
