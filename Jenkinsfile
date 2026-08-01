@@ -9,9 +9,16 @@ pipeline {
         }
         stage('Docker-image build') {
             steps {
-                sh 'docker build -t new:one .'
+                sh '
+                docker rmi -f new:one || true
+                docker build -t new:one .'
             }
         }
+        stage('Deploying to container') {
+            steps {
+                sh 'docker run -d --name c1 new:one'
+            }
+        }  
    } 
 }
 
