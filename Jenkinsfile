@@ -4,7 +4,7 @@ pipeline {
         stage('git checkout') { 
             steps {
                 deleteDir()
-                git 'https://github.com/Dileep232/one.git'
+                git 'https://github.com/Dileep232/K8s.git'
             }
         }
    } 
