@@ -11,7 +11,8 @@ pipeline {
             steps {
                 sh '''
                 docker rmi -f new:one || true
-                docker build -t new:one .'''
+                docker build -t new:one .
+                docker tag new:one dileep232/new:one'''
             }
         }
         stage('Deploying to container') {
