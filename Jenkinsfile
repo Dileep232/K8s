@@ -52,7 +52,7 @@ pipeline {
             steps {
                 sh '''
                 ssh -o StrictHostKeyChecking=no root@3.106.182.99 \
-                "kubectl set image deployment/myapp-deployment myapp=dileep232/new:latest"
+                "kubectl set image deployment/myapp-deployment myapp=dileep232/new:${BUILD_NUMBER}"
                 '''
             }
         }
