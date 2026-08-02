@@ -1,85 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office Login Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Office Login Portal</title>
 
-    <style>
-        body{
-            margin:0;
-            padding:0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-        }
+<style>
 
-        .login-container{
-            background:white;
-            padding:40px;
-            border-radius:15px;
-            width:350px;
-            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
-            text-align:center;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
-        .login-container h1{
-            color:#333;
-            margin-bottom:25px;
-        }
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(
+        135deg,
+        #ff6b6b,
+        #feca57,
+        #48dbfb,
+        #5f27cd
+    );
+    background-size:400% 400%;
+    animation:gradient 10s ease infinite;
+}
 
-        .input-box{
-            width:100%;
-            padding:12px;
-            margin:10px 0;
-            border:1px solid #ccc;
-            border-radius:8px;
-            font-size:16px;
-        }
+@keyframes gradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
-        .login-btn{
-            width:100%;
-            padding:12px;
-            background:#007BFF;
-            color:white;
-            border:none;
-            border-radius:8px;
-            font-size:18px;
-            cursor:pointer;
-        }
+.login-box{
+    width:400px;
+    padding:40px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    box-shadow:0 8px 32px rgba(0,0,0,0.25);
+    text-align:center;
+    color:white;
+}
 
-        .login-btn:hover{
-            background:#0056b3;
-        }
+.login-box h1{
+    margin-bottom:10px;
+    font-size:32px;
+}
 
-        .footer{
-            margin-top:15px;
-            color:gray;
-            font-size:14px;
-        }
-    </style>
+.login-box p{
+    margin-bottom:25px;
+    color:#f1f1f1;
+}
+
+.input-box{
+    width:100%;
+    padding:14px;
+    margin:12px 0;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    font-size:16px;
+}
+
+.login-btn{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#ff9f43;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    background:#ff6b6b;
+    transform:scale(1.03);
+}
+
+.footer{
+    margin-top:20px;
+    font-size:14px;
+    color:#f5f5f5;
+}
+
+</style>
 </head>
 
 <body>
 
-    <div class="login-container">
-        <h1>Office Login</h1>
+<div class="login-box">
 
-        <form>
-            <input type="text" class="input-box" placeholder="Enter Student ID" required>
+    <h1>🚀 Office Portal</h1>
+    <p>Sign in to continue</p>
 
-            <input type="password" class="input-box" placeholder="Enter Password" required>
+    <form>
+        <input type="text"
+               class="input-box"
+               placeholder="Enter Employee ID"
+               required>
 
-            <button type="submit" class="login-btn">Login</button>
-        </form>
+        <input type="password"
+               class="input-box"
+               placeholder="Enter Password"
+               required>
 
-        <div class="footer">
-            © 2026 Office Management offical @capgemini.com
-        </div>
+        <button class="login-btn">
+            Login
+        </button>
+    </form>
+
+    <div class="footer">
+        © 2026 Office Management | Capgemini
     </div>
+
+</div>
 
 </body>
 </html>
