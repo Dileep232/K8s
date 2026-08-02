@@ -1,48 +1,62 @@
 pipeline {
     agent any
+
     stages {
-        stage('git checkout') { 
+
+        stage('Git Checkout') {
             steps {
                 deleteDir()
                 git 'https://github.com/Dileep232/K8s.git'
             }
         }
-        stage('Docker-image build') {
+
+        stage('Docker Image Build') {
             steps {
                 sh '''
                 docker build -t new:${BUILD_NUMBER} .
+
                 docker tag new:${BUILD_NUMBER} dileep232/new:${BUILD_NUMBER}
+
+                docker tag new:${BUILD_NUMBER} dileep232/new:latest
                 '''
             }
         }
-        stage('Deploying to container') {
+
+        stage('Login to DockerHub') {
             steps {
-                sh '''
-                docker rm -f c1 || true
-                docker run -d --name c1 -p 9000:8080 new:${BUILD_NUMBER}
-                '''
-            }
-        }  
-        stage('logi to dockerhub') {
-            steps {
-                withCredentials ([usernamePassword(
-                    credentialsId: 'Dockercred',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASSWD'
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'Dockercred',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASSWD'
                     )
-                    ]) {
-                    sh '''echo "$DOCKER_PASSWD" | docker login -u "$DOCKER_USER" --password-stdin'''
+                ]) {
+                    sh '''
+                    echo "$DOCKER_PASSWD" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
                 }
             }
         }
-        stage('Pushing image to central') {
+
+        stage('Push Image to DockerHub') {
             steps {
                 sh '''
                 docker push dileep232/new:${BUILD_NUMBER}
+
+                docker push dileep232/new:latest
                 '''
             }
         }
-   } 
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                ssh root@3.106.182.99 \
+                "kubectl set image deployment/myapp-deployment myapp=dileep232/new:latest"
+                '''
+            }
+        }
+    }
 }
 
         
