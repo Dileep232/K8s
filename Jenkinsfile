@@ -51,7 +51,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                ssh root@3.106.182.99 \
+                ssh -o StrictHostKeyChecking=no root@3.106.182.99 \
                 "kubectl set image deployment/myapp-deployment myapp=dileep232/new:latest"
                 '''
             }
